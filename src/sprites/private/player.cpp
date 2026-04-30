@@ -1,26 +1,26 @@
 #include "../player.h"
 
 Player::Player(SDL_Renderer *renderer, float x, float y)
-    : Sprite(renderer, "assets/images/jagannathji.png", x, y) 
+    : Sprite(renderer, "assets/images/player.png", x, y) 
 {
     jumpStrength = 490.0f;
     speed = 205;
 }
 
-void Player::handle(double dt, const vector<Grass *> &grasses)
+void Player::handle(double dt, const vector<Grass> &grasses)
 {
     const bool *keys = SDL_GetKeyboardState(NULL);
     Velocity.x = -((int)keys[SDL_SCANCODE_A] - (int)keys[SDL_SCANCODE_D]);
     Velocity.x *= speed;
     colGrasses.clear();
     for (auto grass : grasses)
-        if (SDL_HasRectIntersectionFloat(&rect, &grass->rect))
+        if (SDL_HasRectIntersectionFloat(&rect, &grass.rect))
             colGrasses.push_back(grass);
     state.jumping = colGrasses.empty();
     for (auto collided : colGrasses)
-        if (collided->rect.y > Position.y && Velocity.y > 0)
+        if (collided.rect.y > Position.y && Velocity.y > 0)
         {
-            Position.y = collided->rect.y - rect.h;
+            Position.y = collided.rect.y - rect.h;
             Velocity.y = 0;
             state.jumping = false;
         }
@@ -32,6 +32,5 @@ void Player::handle(double dt, const vector<Grass *> &grasses)
     if (state.jumping)
         Velocity.y += constants::gravity * dt;
     state.walking = (bool)Velocity.x;
-    state.jumping = (bool)Velocity.y;
     Sprite::handle(dt);
 }

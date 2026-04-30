@@ -4,16 +4,19 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3_mixer/SDL_mixer.h>
+#include <tinyxml2.h>
 
 using std::string, std::vector;
 
 extern const string TITLE;
 extern const int SPRITE_SIZE;
 extern int WIDTH, HEIGHT;
+extern const int CAMERA_X, CAMERA_Y;
 
 void log(string message);
 void log(int number);
@@ -27,6 +30,7 @@ struct Image
 {
     SDL_Renderer *renderer = nullptr;
     SDL_Texture *texture = nullptr;
+    float width = 0, height = 0;
     Image(SDL_Renderer *renderer, string source);
     void render(const SDL_FRect *srcrect, const SDL_FRect *dstrect);
 };

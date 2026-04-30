@@ -11,5 +11,5 @@ public:
     SDL_FRect rect;
     Sprite(SDL_Renderer *renderer, string imgSource, float x, float y);
     void handle(double dt);
-    void render();
+    void render(Vector2D Camera);
 };

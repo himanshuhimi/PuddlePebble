@@ -6,14 +6,14 @@
 class Player : public Sprite
 {
 public:
-    vector<Grass *> colGrasses;
     int speed;
     float jumpStrength;
     bool onGround;
+    vector<Grass> colGrasses;
     struct PlayerStates
     {
         bool jumping, walking;
     } state;
     Player(SDL_Renderer *renderer, float x, float y);
-    void handle(double dt, const vector<Grass *> &grasses);
+    void handle(double dt, const vector<Grass> &grasses);
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "config.h"
+#include "../tools/level.h"
 
 class Game
 {
@@ -19,5 +20,6 @@ public:
 private:
     Uint64 LAST = SDL_GetPerformanceCounter();
     Uint64 NOW;
+    Level *level;
     void updateDeltaTime();
 };

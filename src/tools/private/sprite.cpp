@@ -17,7 +17,10 @@ void Sprite::handle(double dt)
     rect.y = Position.y;
 }
 
-void Sprite::render()
+void Sprite::render(Vector2D Camera)
 {
-    image->render(nullptr, &rect);
+    SDL_FRect dst = rect;
+    dst.x -= Camera.x;
+    dst.y -= Camera.y;
+    image->render(nullptr, &dst);
 }

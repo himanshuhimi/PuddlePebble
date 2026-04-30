@@ -14,6 +14,7 @@ Game::Game()
         log("Display Unloaded: " + (string)SDL_GetError());
     else
         log("Display Loaded");
+    level = new Level(renderer, 1);
     active = true;
 }
 
@@ -30,9 +31,7 @@ void Game::render()
 {
     SDL_SetRenderDrawColor(renderer, 100, 198, 243, 255);
     SDL_RenderClear(renderer);
-    for (auto grass : grasses)
-        grass->render();
-    player->render();
+    level->render();
     SDL_RenderPresent(renderer);
 }
 
@@ -42,7 +41,7 @@ void Game::handle()
     while (SDL_PollEvent(&event))
         if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
             terminate();
-    player->handle(dt, grasses);
+    level->handle(dt);
 }
 
 void Game::terminate()

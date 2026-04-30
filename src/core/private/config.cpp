@@ -3,6 +3,7 @@
 const string TITLE = "Puddle Pebble";
 const int SPRITE_SIZE = 32;
 int WIDTH = 640, HEIGHT = 360;
+const int CAMERA_X = WIDTH / 2, CAMERA_Y = HEIGHT / 2;
 void log(string message)
 {
     std::cout << "[LOG] " << message << std::endl;
@@ -18,6 +19,7 @@ Image::Image(SDL_Renderer *renderer, string source) : renderer(renderer)
     texture = IMG_LoadTexture(renderer, source.c_str());
     if (!texture)
         log("Unloaded Texture: " + source);
+    SDL_GetTextureSize(texture, &width, &height);
 }
 
 void Image::render(const SDL_FRect *src, const SDL_FRect *dst)
