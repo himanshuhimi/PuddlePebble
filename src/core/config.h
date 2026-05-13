@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
+#include <filesystem>
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
@@ -57,6 +59,17 @@ struct Text
     void render();
     void updateData(string newData);
     void updateAlpha(int newAlpha);
+};
+struct Animation
+{
+    SDL_Renderer *renderer = nullptr;
+    Image *imageSet = nullptr;
+    SDL_FRect src, dst;
+    int index = 0;
+    float timer = 0.0f, frameTime = 0.5f;
+    Animation(SDL_Renderer *renderer, SDL_FRect dst, string source);
+    void handle(double dt);
+    void render(Vector2D Camera);
 };
 
 enum constants

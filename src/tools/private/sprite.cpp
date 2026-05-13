@@ -2,7 +2,7 @@
 
 Sprite::Sprite(SDL_Renderer *renderer, string imgSource, float x, float y)
 {
-    image = new Image(renderer, imgSource);
+    image = new Image(renderer, "assets/images/" + imgSource);
     SDL_GetTextureSize(image->texture, &rect.w, &rect.h);
     Position = Vector2D{x - rect.w / 2, y};
     rect.x = Position.x;
@@ -19,7 +19,7 @@ void Sprite::handle(double dt)
 
 void Sprite::render(Vector2D Camera)
 {
-    SDL_FRect dst = rect;
+    dst = rect;
     dst.x -= Camera.x;
     dst.y -= Camera.y;
     image->render(nullptr, &dst);

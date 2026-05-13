@@ -1,7 +1,7 @@
 #include "../level.h"
 
 Level::Level(SDL_Renderer *renderer, int number)
-    : player(renderer, WIDTH / 2, HEIGHT / 2),
+    : player(renderer, 0, 0),
       map(
           renderer,
           "maps/" + std::to_string(number - 1) + ".tmx")

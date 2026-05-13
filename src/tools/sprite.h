@@ -8,7 +8,7 @@ public:
     SDL_Renderer *renderer = nullptr;
     Image *image = nullptr;
     Vector2D Velocity, Position;
-    SDL_FRect rect;
+    SDL_FRect dst, rect;
     Sprite(SDL_Renderer *renderer, string imgSource, float x, float y);
     void handle(double dt);
     void render(Vector2D Camera);

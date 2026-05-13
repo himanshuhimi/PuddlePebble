@@ -34,10 +34,9 @@ Text::Text(
     string data,
     string fontSource,
     SDL_Color color,
-    int pixelSize
-)
-: renderer(renderer), x(x), y(y),
-    pixelSize(pixelSize), color(color)
+    int pixelSize)
+    : renderer(renderer), x(x), y(y),
+      pixelSize(pixelSize), color(color)
 {
     font = TTF_OpenFont(fontSource.c_str(), pixelSize);
     if (!font)
@@ -76,4 +75,35 @@ void Text::updateAlpha(int newAlpha)
     alpha = newAlpha;
     if (texture)
         SDL_SetTextureAlphaMod(texture, alpha);
+}
+
+Animation::Animation(SDL_Renderer *renderer, SDL_FRect dst, string source)
+    : renderer(renderer), dst(dst)
+{
+    imageSet = new Image(renderer, source);
+}
+
+void Animation::handle(double dt)
+{
+    timer += dt;
+    if (timer >= frameTime)
+    {
+        timer = 0.0f;
+        index++;
+        int maxFrames = imageSet->width / SPRITE_SIZE;
+        if (index >= maxFrames)
+            index = 0;
+    }
+}
+
+void Animation::render(Vector2D Camera)
+{
+    SDL_FRect renderDst = dst;
+    renderDst.x -= Camera.x;
+    renderDst.y -= Camera.y;
+    src.x = index * SPRITE_SIZE;
+    src.y = 0;
+    src.w = (float)SPRITE_SIZE;
+    src.h = (float)SPRITE_SIZE;
+    imageSet->render(&src, &renderDst);
 }

@@ -10,10 +10,13 @@ public:
     float jumpStrength;
     bool onGround;
     vector<Grass> colGrasses;
+    std::unordered_map<string, Animation *> anims;
+    enum Direction {Left, Right} lastDirection;
     struct PlayerStates
     {
         bool jumping, walking;
     } state;
     Player(SDL_Renderer *renderer, float x, float y);
     void handle(double dt, const vector<Grass> &grasses);
+    void render(Vector2D Camera);
 };
